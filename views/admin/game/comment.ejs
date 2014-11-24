@@ -1,0 +1,78 @@
+<% layout('../common/layout') -%>
+
+<div class="container">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <div class="panel-title pull-left"><b><i class="glyphicon glyphicon-list-alt"></i> 游戏评论列表</b></div>
+                <a class="btn btn-success btn-xs pull-right" href="/admin/game/add">添加游戏</a>
+            </div>
+            <div class="panel-body">
+                <form class="form-inline" role="form">
+                    <div class="form-group">
+                        <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">@</div>
+                            <input class="form-control" type="email" placeholder="Enter email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="sr-only" for="exampleInputPassword2">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-default">Sign in</button>
+                </form>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>封面</th>
+                        <th>游戏名称</th>
+                        <th>类型</th>
+                        <th>发行商</th>
+                        <th>开发商</th>
+                        <th>发售时间</th>
+                        <th>管理</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if(games) { %>
+                    <% games.forEach(function(game){ %>
+                    <tr>
+                        <td><%=game.cover %></td>
+                        <td><%=game.title %></td>
+                        <td><%=game.type %></td>
+                        <td><%=game.publisher %></td>
+                        <td><%=game.developer %></td>
+                        <td><%=game.releaseAt %></td>
+                        <td>
+                            <a href="/admin/game/comment?id=<%=game._id%>" class="btn btn-xs btn-success">评论列表</a>
+                            <a href="/admin/game/edit?id=<%=game._id%>" class="btn btn-xs btn-warning">编辑游戏</a>
+                            <a href="javascript:;" class="btn btn-xs btn-danger cc-btn-delete" data-id="<%=game._id%>">删除</a>
+                        </td>
+                    </tr>
+                    <% }) %>
+                    <% } else { %>
+                    <tr>
+                        <th rowspan="7">暂无记录</th>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+            <div class="panel-footer">
+                <ul class="pagination">
+                    <li class="disabled"><a href="#">上一页</a></li>
+                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">2 <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">3 <span class="sr-only">(current)</span></a></li>
+                    <li class="disabled"><a href="#">下一页</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>require(['admin/game/index']);</script>

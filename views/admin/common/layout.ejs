@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><% title %></title>
+    <link rel="stylesheet" href="/libs/common.css">
+    <script src="/libs/require.js"></script>
+    <script src="/libs/config.js"></script>
+    <script>require(['jquery', 'bootstrap']);</script>
+</head>
+<body>
+
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/admin">控制面板</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <% auth_menu.forEach(function(menu){ %>
+                    <% if(menu.childs.length > 0){ %>
+                    <li class="dropdown <% if(current_path.indexOf(menu.url) !== -1) { %>active<% } %>">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= menu.name %> <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <% menu.childs.forEach(function(subMenu){ %>
+                            <li><a href="<%= subMenu.url %>"><%= subMenu.name %></a></li>
+                            <% }) %>
+                        </ul>
+                    </li>
+                    <% } else { %>
+                    <li class="<% if(current_path.indexOf(menu.url) !== -1) { %>active<% } %>">
+                        <a href="<%= menu.url %>"><%= menu.name %></a>
+                    </li>
+                    <% } %>
+                    <% }) %>
+                </ul>
+                <% if(auth_user){ %>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= auth_user.username %> <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">修改密码</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">退出登陆</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <% } %>
+            </div>
+        </div>
+    </nav>
+
+    <div id="partial">
+        <%-body -%>
+    </div>
+
+    <footer>
+        <div class="container text-center">
+            <p>Copyright &copy; 2014 wiicode.net All Right Reserved. </p>
+        </div>
+    </footer>
+</body>
+</html>
